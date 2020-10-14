@@ -3,7 +3,6 @@ srcdir="$(dirname $0)"
 cd "$srcdir"
 if [ -z ${LIBTOOLIZE} ] && GLIBTOOLIZE="`which glibtoolize 2>/dev/null`"; then
   LIBTOOLIZE="${GLIBTOOLIZE}"
-  libtoolize--automake--copy--debug--force
   export LIBTOOLIZE
 fi
 which autoreconf >/dev/null || \

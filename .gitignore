@@ -1,1 +1,25 @@
+# ide & editor stuff
+.project
+.cproject
 .vscode
+.vs/ProjectSettings.json
+
+.vs/scrypta/v16/.suo
+
+.vs/scrypta/v16/Browse.VC.db
+
+.vs/scrypta/v16/Browse.VC.db-shm
+
+.vs/scrypta/v16/Browse.VC.db-wal
+
+.vs/scrypta/v16/Browse.VC.opendb
+
+.vs/scrypta/v16/ipch/AutoPCH/507b2c68dc22395c/GALILELD.ipch
+
+.vs/scrypta/v16/ipch/AutoPCH/8028b51351a1ac05/CONTEXT.ipch
+
+.vs/scrypta/v16/ipch/AutoPCH/eb60bb6289f933c6/GUIUTIL.ipch
+
+.vs/slnx.sqlite
+
+.vs/VSWorkspaceState.json

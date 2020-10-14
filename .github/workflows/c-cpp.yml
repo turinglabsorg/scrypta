@@ -35,6 +35,7 @@ jobs:
       run: make -C depends -j$(nproc) HOST=x86_64-unknown-linux-gnu
     - name: Build Lyra
       run: |
+           autoreconf -i
            ./autogen.sh
            ./configure --with-unsupported-ssl
            make -j$(nproc)
@@ -76,12 +77,14 @@ jobs:
       run: make -C depends -j$(nproc) HOST=x86_64-w64-mingw32
     - name: Build Lyra
       run: |
+           autoreconf -i
            ./autogen.sh
            sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
+           autoreconf -i
            ./autogen.sh
            sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
            make -j$(nproc)
@@ -95,12 +98,14 @@ jobs:
       run: brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python qt libevent qrencode ccache
     - name: Build Lyra
       run: |
+           autoreconf -i
            ./autogen.sh
            ./configure --with-unsupported-ssl
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
+           autoreconf -i
            ./autogen.sh
            ./configure --with-unsupported-ssl
            make -j$(nproc)
