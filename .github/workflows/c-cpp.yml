@@ -6,18 +6,14 @@ on:
   pull_request:
     branches:
     - master
-env:
-  SOURCE_ARTIFACT: source
 jobs:
-  create-source-distribution:
-    name: Create Source Distribution
+  target-linux:
+    name: Target Linux
     runs-on: ubuntu-18.04
-    env:
-      ARTIFACT_DIR: source
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
-    - name: Install Required Packages
+      uses: actions/checkout@v1
+    - name: Install dependencies
       run: |
            sudo apt-get update
            sudo apt install -y build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git
@@ -35,12 +31,14 @@ jobs:
            sudo apt-get install -y autoconf g++ make openssl libssl-dev libcurl4-openssl-dev
            sudo apt-get install -y libcurl4-openssl-dev pkg-config
            sudo apt-get install -y libsasl2-dev
-    - name: Create Distribution Tarball
+    - name: Build dependencies
+      run: make -C depends -j$(nproc) HOST=x86_64-unknown-linux-gnu
+    - name: Build Lyra
       run: |
         ./autogen.sh
         ./configure --with-unsupported-ssl
         make -j$(nproc)
-    - name: Botched work around
+    - name: Work around ltmain.sh issue
       if: failure()
       run: |
            sudo apt-get update
@@ -75,24 +73,14 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: ${{ env.SOURCE_ARTIFACT }}
-        path: ${{ env.ARTIFACT_DIR }}    
-  build-windows:
-    name: Build for Windows
-    needs: create-source-distribution
-    runs-on: ubuntu-18.04
-    env:
-      ARTIFACT_DIR: windows-binaries
+        path: ${{ env.ARTIFACT_DIR }}
+  target-windows:
+    name: Target Windows
+    runs-on: ubuntu-latest
     steps:
-    - name: Getting Source
-      uses: actions/download-artifact@v1
-      with:
-        name: ${{ env.SOURCE_ARTIFACT }}
-    - name: Extract Archives
-      run: |
-        tar -xzf depends.tar.gz
-        tar -xzf lyra-*.tar.gz --strip-components=1
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
-    - name: Install Required Packages
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64
@@ -100,57 +88,23 @@ jobs:
       run: |
         sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
         sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
-    - name: Build Dependencies
+    - name: Build dependencies
       run: make -C depends -j$(nproc) HOST=x86_64-w64-mingw32
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
-    - name: Build Scrypta
-      run: |
-        sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
-        make -j$(nproc)
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
-    - name: Prepare Files for Artifact
-      run: |
-        mkdir -p $ARTIFACT_DIR
-        mv $SOURCE_ARTIFACT/src/{lyra-cli.exe,lyra-tx.exe,lyrad.exe,qt/lyra-qt.exe} $ARTIFACT_DIR
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: windows-binaries
-        path: ${{ env.ARTIFACT_DIR }}
-  build-mac:
-    name: Build for macOS
-    needs: create-source-distribution
-    runs-on: macos-10.15
-    env:
-      ARTIFACT_DIR: mac-binaries
-    steps:
-    - name: Getting Source
-      uses: actions/download-artifact@v1
-      with:
-        name: ${{ env.SOURCE_ARTIFACT }}
-    - name: Extract Archives
-      run: |
-        tar -xzf depends.tar.gz
-        tar -xzf lyra-*.tar.gz --strip-components=1
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
-    - name: Use Xcode instead of Command Line Tools
-      run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-    - name: Install Required Packages
-      run: brew install automake coreutils pkg-config
-    - name: Build Dependencies
-      run: make -C depends -j$(sysctl -n hw.activecpu)
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Build Zcoin
       run: |
-        ./configure --prefix=`pwd`/depends/x86_64-apple-darwin11
-        make -j$(sysctl -n hw.activecpu)
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
-    - name: Prepare Files for Artifact
+        ./autogen.sh
+        sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
+        make -j$(nproc)
+  target-macos:
+    name: Target macOS
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Install dependencies
+      run: brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python qt libevent qrencode ccache
+    - name: Build Lyra
       run: |
-        mkdir -p $ARTIFACT_DIR
-        mv $SOURCE_ARTIFACT/src/{lyra-cli,lyra-tx,lyra,qt/lyra-qt} $ARTIFACT_DIR
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: mac-binaries
-        path: ${{ env.ARTIFACT_DIR }}
+        ./autogen.sh
+        ./configure --enable-exodus
+        make -j$(nproc)
