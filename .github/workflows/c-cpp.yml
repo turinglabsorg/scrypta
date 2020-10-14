@@ -17,18 +17,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Install Required Packages
-      run: |
-        sudo apt-get update
-  build-linux:
-    name: Build for Linux
-    needs: create-source-distribution
-    runs-on: ubuntu-18.04
-    env:
-      ARTIFACT_DIR: source
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
     - name: Install depends
       run: |
            sudo apt-get update
