@@ -7,8 +7,8 @@ on:
     branches:
     - master
 jobs:
-  target-linux:
-    name: Target Linux
+  target-depends:
+    name: Build Depends
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -33,17 +33,6 @@ jobs:
            sudo apt-get install -y libsasl2-dev
     - name: Build dependencies
       run: make -C depends -j$(nproc) HOST=x86_64-unknown-linux-gnu
-    - name: Build Lyra
-      run: |
-        ./autogen.sh
-        ./configure --with-unsupported-ssl
-        make -j$(nproc)
-    - name: Work around ltmain.sh issue
-      if: failure()
-      run: |
-        ./autogen.sh
-        ./configure --with-unsupported-ssl
-        make -j$(nproc)
     - name: Download Dependencies
       run: make -C depends download
     - name: Create Dependencies Tarball
@@ -56,6 +45,31 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: ${{ env.SOURCE_ARTIFACT }}
+        path: ${{ env.ARTIFACT_DIR }}
+
+  target-linux: 
+    name: Build Depends
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Build Lyra Linux
+      run: |
+        ./autogen.sh
+        ./configure --with-unsupported-ssl
+        make -j$(nproc)
+    - name: Work around ltmain.sh issue
+      if: failure()
+      run: |
+        ./autogen.sh
+        ./configure --with-unsupported-ssl
+        make -j$(nproc)
+    - name: Prepare Files for Artifact
+      run: |
+        mkdir -p $ARTIFACT_DIR
+        mv $SOURCE_ARTIFACT/src/{lyra-cli,lyra-tx,lyrad,qt/lyra-qt} $ARTIFACT_DIR
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: linux-binaries
         path: ${{ env.ARTIFACT_DIR }}
   target-windows:
     name: Target Windows
@@ -84,6 +98,15 @@ jobs:
         ./autogen.sh
         sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
         make -j$(nproc)
+    - name: Prepare Files for Artifact
+      run: |
+        mkdir -p $ARTIFACT_DIR
+        mv $SOURCE_ARTIFACT/src/{lyra-cli.exe,lyra-tx.exe,lyrad.exe,qt/lyra-qt.exe} $ARTIFACT_DIR
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: windows-binaries
+        path: ${{ env.ARTIFACT_DIR }}
   target-macos:
     name: Target macOS
     runs-on: macos-latest
@@ -101,5 +124,14 @@ jobs:
       if: failure()
       run: |
         ./autogen.sh
-        ./configure --enable-exodus
+        ./configure --with-unsupported-ssl
         make -j$(nproc)
+    - name: Prepare Files for Artifact
+      run: |
+        mkdir -p $ARTIFACT_DIR
+        mv $SOURCE_ARTIFACT/src/{lyra-cli,lyra-tx,lyrad,qt/lyra-qt} $ARTIFACT_DIR
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: mac-binaries
+        path: ${{ env.ARTIFACT_DIR }}
