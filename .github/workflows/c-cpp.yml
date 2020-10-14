@@ -71,14 +71,14 @@ jobs:
       run: |
         ./autogen.sh
         ./configure --with-unsupported-ssl
-        make -j$(nproc)
+        make
        working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
         ./autogen.sh
         ./configure --with-unsupported-ssl
-        make -j$(nproc)
+        make
       working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Prepare Files for Artifact
       run: |
@@ -110,13 +110,13 @@ jobs:
       run: |
         ./autogen.sh
         sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
-        make -j$(nproc)
+        make
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
         ./autogen.sh
         sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
-        make -j$(nproc)
+        make
     - name: Prepare Files for Artifact
       run: |
         mkdir -p $ARTIFACT_DIR
@@ -138,13 +138,13 @@ jobs:
       run: |
         ./autogen.sh
         ./configure --enable-exodus
-        make -j$(nproc)
+        make
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
         ./autogen.sh
         ./configure --with-unsupported-ssl
-        make -j$(nproc)
+        make
     - name: Prepare Files for Artifact
       run: |
         mkdir -p $ARTIFACT_DIR
