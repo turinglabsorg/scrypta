@@ -9,11 +9,16 @@ on:
 env:
   SOURCE_ARTIFACT: source
 jobs:
-  create-source-distribution:
-    name: Install Depends
+  build-linux:
+    name: Build for Linux
+    needs: create-source-distribution
     runs-on: ubuntu-18.04
+    env:
+      ARTIFACT_DIR: source
     steps:
-    - name: Install Required Packages
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install depends
       run: |
            sudo apt-get update
            sudo apt install -y build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git
@@ -26,15 +31,6 @@ jobs:
            sudo apt-get install -y libminiupnpc-dev
            sudo apt-get install -y libtool
            sudo apt-get install -y libcurl4-openssl-dev
-  build-linux:
-    name: Build for Linux
-    needs: create-source-distribution
-    runs-on: ubuntu-18.04
-    env:
-      ARTIFACT_DIR: source
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
     - name: Build Scrypta
       run: |
            ./autogen.sh
