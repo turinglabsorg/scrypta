@@ -41,6 +41,7 @@ jobs:
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
+           autoreconf -i
            ./autogen.sh
            ./configure --with-unsupported-ssl
            make -j$(nproc)
