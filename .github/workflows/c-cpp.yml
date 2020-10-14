@@ -6,10 +6,14 @@ on:
   pull_request:
     branches:
     - master
+env:
+  SOURCE_ARTIFACT: source
 jobs:
   target-depends:
     name: Build Depends
     runs-on: ubuntu-18.04
+    env:
+      ARTIFACT_DIR: source
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -48,20 +52,34 @@ jobs:
         path: ${{ env.ARTIFACT_DIR }}
 
   target-linux: 
-    name: Build Depends
+    name: Build Linux
+    needs: target-depends
     runs-on: ubuntu-18.04
+    env:
+      ARTIFACT_DIR: linux-binaries
     steps:
+    - name: Getting Source
+      uses: actions/download-artifact@v1
+      with:
+        name: ${{ env.SOURCE_ARTIFACT }}
+    - name: Extract Archives
+      run: |
+        tar -xzf depends.tar.gz
+        tar -xzf lyra-*.tar.gz --strip-components=1
+    working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Build Lyra Linux
       run: |
         ./autogen.sh
         ./configure --with-unsupported-ssl
         make -j$(nproc)
+    working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
         ./autogen.sh
         ./configure --with-unsupported-ssl
         make -j$(nproc)
+    working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Prepare Files for Artifact
       run: |
         mkdir -p $ARTIFACT_DIR
@@ -71,6 +89,7 @@ jobs:
       with:
         name: linux-binaries
         path: ${{ env.ARTIFACT_DIR }}
+
   target-windows:
     name: Target Windows
     runs-on: ubuntu-latest

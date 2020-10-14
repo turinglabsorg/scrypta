@@ -1,17 +1,12 @@
-#! /bin/sh
-
+set -e
 srcdir="$(dirname $0)"
 cd "$srcdir"
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-        # ...
-        libtoolize
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-        # Mac OSX
-        glibtoolize
-else
-        libtoolize
+if [ -z ${LIBTOOLIZE} ] && GLIBTOOLIZE="`which glibtoolize 2>/dev/null`"; then
+  LIBTOOLIZE="${GLIBTOOLIZE}"
+  export LIBTOOLIZE
 fi
+which autoreconf >/dev/null || \
+  (echo "configuration failed, please install autoconf first" && exit 1)
+autoreconf -i
 
-aclocal \
-&& automake --add-missing \
-&& autoconf --install --force --warnings=all
+(cd "${srcdir}/src/secp256k1" && ./autogen.sh)
