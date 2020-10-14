@@ -30,6 +30,10 @@ jobs:
            sudo apt-get install -y libminiupnpc-dev
            sudo apt-get install -y libtool
            sudo apt-get install -y libcurl4-openssl-dev
+           sudo apt-get install -y openssl
+           sudo apt-get install -y autoconf g++ make openssl libssl-dev libcurl4-openssl-dev
+           sudo apt-get install -y libcurl4-openssl-dev pkg-config
+           sudo apt-get install -y libsasl2-dev
     - name: Create Distribution Tarball
       run: |
         ./autogen.sh
