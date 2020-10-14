@@ -17,7 +17,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Install depends
+    - name: Install Required Packages
       run: |
            sudo apt-get update
            sudo apt install -y build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git
@@ -30,29 +30,30 @@ jobs:
            sudo apt-get install -y libminiupnpc-dev
            sudo apt-get install -y libtool
            sudo apt-get install -y libcurl4-openssl-dev
-    - name: Build Scrypta
+    - name: Create Distribution Tarball
       run: |
-           ./autogen.sh
-           ./configure --with-unsupported-ssl
-           make -j$(nproc)
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
+        ./autogen.sh
+        ./configure --with-unsupported-ssl
+        make -j$(nproc)
     - name: Botched work around
       if: failure()
       run: |
            ./autogen.sh
            ./configure --with-unsupported-ssl
            make -j$(nproc)
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
+    - name: Download Dependencies
+      run: make -C depends download
+    - name: Create Dependencies Tarball
+      run: tar -czf depends.tar.gz depends
     - name: Prepare Files for Artifact
       run: |
         mkdir -p $ARTIFACT_DIR
-        mv $SOURCE_ARTIFACT/src/{lyra-cli,lyra-tx,lyrad,qt/lyra-qt} $ARTIFACT_DIR
+        mv depends.tar.gz lyra-*.tar.gz $ARTIFACT_DIR
     - name: Upload Artifact
       uses: actions/upload-artifact@v1
       with:
-        name: linux-binaries
-        path: ${{ env.ARTIFACT_DIR }}
-    
+        name: ${{ env.SOURCE_ARTIFACT }}
+        path: ${{ env.ARTIFACT_DIR }}    
   build-windows:
     name: Build for Windows
     needs: create-source-distribution
