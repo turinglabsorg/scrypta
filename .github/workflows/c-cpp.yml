@@ -10,13 +10,9 @@ env:
   SOURCE_ARTIFACT: source
 jobs:
   create-source-distribution:
-    name: Create Source Distribution
+    name: Install Depends
     runs-on: ubuntu-18.04
-    env:
-      ARTIFACT_DIR: source
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
     - name: Install Required Packages
       run: |
            sudo apt-get update
@@ -30,25 +26,15 @@ jobs:
            sudo apt-get install -y libminiupnpc-dev
            sudo apt-get install -y libtool
            sudo apt-get install -y libcurl4-openssl-dev
-    - name: Prepare Files for Artifact
-      run: |
-        mkdir -p $ARTIFACT_DIR
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: ${{ env.SOURCE_ARTIFACT }}
-        path: ${{ env.ARTIFACT_DIR }}
   build-linux:
     name: Build for Linux
     needs: create-source-distribution
     runs-on: ubuntu-18.04
     env:
-      ARTIFACT_DIR: linux-binaries
+      ARTIFACT_DIR: source
     steps:
-    - name: Getting Source
-      uses: actions/download-artifact@v1
-      with:
-        name: ${{ env.SOURCE_ARTIFACT }}
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Build Scrypta
       run: |
            ./autogen.sh
