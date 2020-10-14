@@ -37,14 +37,14 @@ jobs:
       run: |
            autoreconf -i
            ./autogen.sh
-           ./configure --with-unsupported-ssl
+           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
            autoreconf -i
            ./autogen.sh
-           ./configure --with-unsupported-ssl
+           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
     - name: Download Dependencies
       run: make -C depends download
@@ -79,14 +79,14 @@ jobs:
       run: |
            autoreconf -i
            ./autogen.sh
-           sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
+           sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --prefix=/
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
            autoreconf -i
            ./autogen.sh
-           sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
+           sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --prefix=/
            make -j$(nproc)
   target-macos:
     name: Target macOS
@@ -100,12 +100,12 @@ jobs:
       run: |
            autoreconf -i
            ./autogen.sh
-           ./configure --with-unsupported-ssl
+           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
            autoreconf -i
            ./autogen.sh
-           ./configure --with-unsupported-ssl
+           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
