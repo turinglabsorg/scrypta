@@ -8,5 +8,3 @@ fi
 which autoreconf >/dev/null || \
   (echo "configuration failed, please install autoconf first" && exit 1)
 autoreconf -i
-
-(cd "${srcdir}/src/secp256k1" && ./autogen.sh)
