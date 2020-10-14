@@ -66,20 +66,20 @@ jobs:
       run: |
         tar -xzf depends.tar.gz
         tar -xzf lyra-*.tar.gz --strip-components=1
-    working-directory: ${{ env.SOURCE_ARTIFACT }}
+      working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Build Lyra Linux
       run: |
         ./autogen.sh
         ./configure --with-unsupported-ssl
         make -j$(nproc)
-    working-directory: ${{ env.SOURCE_ARTIFACT }}
+       working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
         ./autogen.sh
         ./configure --with-unsupported-ssl
         make -j$(nproc)
-    working-directory: ${{ env.SOURCE_ARTIFACT }}
+      working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Prepare Files for Artifact
       run: |
         mkdir -p $ARTIFACT_DIR
