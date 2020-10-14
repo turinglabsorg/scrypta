@@ -30,25 +30,9 @@ jobs:
            sudo apt-get install -y libminiupnpc-dev
            sudo apt-get install -y libtool
            sudo apt-get install -y libcurl4-openssl-dev
-    - name: Create Distribution Tarball
-      run: |
-        ./autogen.sh
-        ./configure --with-unsupported-ssl
-        make
-    - name: Botched work around
-      if: failure()
-      run: |
-        ./autogen.sh
-        ./configure --with-unsupported-ssl
-        make dist
-    - name: Download Dependencies
-      run: make -C depends download
-    - name: Create Dependencies Tarball
-      run: tar -czf depends.tar.gz depends
     - name: Prepare Files for Artifact
       run: |
         mkdir -p $ARTIFACT_DIR
-        mv depends.tar.gz zcoin-*.tar.gz $ARTIFACT_DIR
     - name: Upload Artifact
       uses: actions/upload-artifact@v1
       with:
@@ -60,25 +44,19 @@ jobs:
     runs-on: ubuntu-18.04
     env:
       ARTIFACT_DIR: linux-binaries
-      TEST_LOG_ARTIFACT_DIR: test-logs
     steps:
     - name: Getting Source
       uses: actions/download-artifact@v1
       with:
         name: ${{ env.SOURCE_ARTIFACT }}
-    - name: Extract Archives
-      run: |
-        tar -xzf depends.tar.gz
-        tar -xzf lyra-*.tar.gz --strip-components=1
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
-    - name: Install Required Packages
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y python3-zmq
-    - name: Build Dependencies
-      run: make -C depends -j$(nproc)
-      working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Build Scrypta
+      run: |
+           ./autogen.sh
+           ./configure --with-unsupported-ssl
+           make -j$(nproc)
+      working-directory: ${{ env.SOURCE_ARTIFACT }}
+    - name: Botched work around
+      if: failure()
       run: |
            ./autogen.sh
            ./configure --with-unsupported-ssl
