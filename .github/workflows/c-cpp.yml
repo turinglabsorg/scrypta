@@ -26,6 +26,11 @@ jobs:
         ./autogen.sh
         ./configure --with-unsupported-ssl
         make dist
+      if: error()
+      run: |
+        ./autogen.sh
+        ./configure --with-unsupported-ssl
+        make dist
     - name: Download Dependencies
       run: make -C depends download
     - name: Create Dependencies Tarball
