@@ -95,11 +95,11 @@ jobs:
     - name: Build Lyra
       run: |
            ./autogen.sh
-           ./configure --enable-exodus
+           ./configure --with-unsupported-ssl
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
            ./autogen.sh
-           ./configure --enable-exodus
+           ./configure --with-unsupported-ssl
            make -j$(nproc)
