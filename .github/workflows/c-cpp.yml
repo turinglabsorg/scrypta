@@ -26,6 +26,7 @@ jobs:
         ./autogen.sh
         ./configure --with-unsupported-ssl
         make dist
+    - name: Botched work around
       if: error()
       run: |
         ./autogen.sh
