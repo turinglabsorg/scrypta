@@ -73,7 +73,13 @@ jobs:
         sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
     - name: Build dependencies
       run: make -C depends -j$(nproc) HOST=x86_64-w64-mingw32
-    - name: Build Zcoin
+    - name: Build Lyra
+      run: |
+        ./autogen.sh
+        sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
+        make -j$(nproc)
+    - name: Work around ltmain.sh issue
+      if: failure()
       run: |
         ./autogen.sh
         sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
@@ -87,6 +93,12 @@ jobs:
     - name: Install dependencies
       run: brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python qt libevent qrencode ccache
     - name: Build Lyra
+      run: |
+        ./autogen.sh
+        ./configure --enable-exodus
+        make -j$(nproc)
+    - name: Work around ltmain.sh issue
+      if: failure()
       run: |
         ./autogen.sh
         ./configure --enable-exodus
