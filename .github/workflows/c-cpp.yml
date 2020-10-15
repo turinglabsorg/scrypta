@@ -36,9 +36,9 @@ jobs:
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
-           ./autogen.sh
-           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
-           make -j$(nproc)
+           sudo ./autogen.sh
+           sudo ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
+           sudo make -j$(nproc)
   target-windows:
     name: Target Windows
     runs-on: ubuntu-latest
