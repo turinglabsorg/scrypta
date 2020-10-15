@@ -28,7 +28,7 @@ jobs:
            libtoolize --automake --copy --debug --force
            autoreconf -i
            ./autogen.sh
-           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
+           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --with-incompatible-bdb
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
@@ -36,7 +36,7 @@ jobs:
            libtoolize --automake --copy --debug --force
            autoreconf -i
            ./autogen.sh
-           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
+           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --with-incompatible-bdb
            make -j$(nproc)
   target-windows:
     name: Target Windows
@@ -60,14 +60,14 @@ jobs:
       run: |
            libtoolize --automake --copy --debug --force
            ./autogen.sh --enable-maintainer-mode
-           sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --prefix=/
+           sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --with-incompatible-bdb --prefix=/
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
            autoreconf -i
            ./autogen.sh --enable-maintainer-mode
-           sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --prefix=/
+           sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --with-incompatible-bdb --prefix=/
            make -j$(nproc)
   target-macos:
     name: Target macOS

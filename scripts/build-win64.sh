@@ -33,7 +33,9 @@ cd depends
 sudo make HOST=x86_64-w64-mingw32 -j4
 
 cd ..
-sudo ./autogen.sh # not required when building from tarball
+sudo libtoolize --automake --copy --debug --force
+sudo autoreconf -i
+sudo ./autogen.sh
 sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
 sudo make
 

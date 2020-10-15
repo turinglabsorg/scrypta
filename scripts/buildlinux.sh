@@ -25,6 +25,8 @@ sudo apt-get install -y autoconf g++ make openssl libssl-dev libcurl4-openssl-de
 sudo apt-get install -y libcurl4-openssl-dev pkg-config -y
 sudo apt-get install -y libsasl2-dev -y
 
+libtoolize --automake --copy --debug --force
+autoreconf -i
 ./autogen.sh
 ./configure --with-unsupported-ssl
 make
