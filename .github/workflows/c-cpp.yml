@@ -31,13 +31,13 @@ jobs:
            sudo libtoolize --automake --copy --debug --force
            sudo autoreconf -i
            sudo ./autogen.sh
-           sudo ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
+           sudo ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl
            sudo make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
            sudo ./autogen.sh
-           sudo ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
+           sudo ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl
            sudo make -j$(nproc)
   target-windows:
     name: Target Windows
