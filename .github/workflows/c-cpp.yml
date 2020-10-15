@@ -18,48 +18,26 @@ jobs:
            sudo apt-get update
            sudo apt-get install -y build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 curl
            sudo apt-get install -y protobuf-c-compiler
-           sudo apt-get install -y libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
-           sudo apt-get install -y software-properties-common
-           sudo add-apt-repository ppa:bitcoin/bitcoin
-           sudo apt-get update -y
-           sudo apt-get install -y libdb4.8-dev libdb4.8++-dev
-           sudo apt-get install -y libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
-           sudo apt-get install -y libzmq3-dev
            sudo apt-get install -y libminiupnpc-dev
-           sudo apt-get install -y libcurl4-openssl-dev
-           sudo apt-get install -y openssl
-           sudo apt-get install -y autoconf g++ make openssl libssl-dev libcurl4-openssl-dev
            sudo apt-get install -y libcurl4-openssl-dev pkg-config
            sudo apt-get install -y libsasl2-dev
            sudo apt-get install -y libtool libtool-bin
-    - name: Build dependencies
-      run: make -C depends -j$(nproc) HOST=x86_64-unknown-linux-gnu
+           sudo apt-get install -y libcurl4-openssl-dev
     - name: Build Lyra
       run: |
            libtoolize --automake --copy --debug --force
-           ./autogen.sh --enable-maintainer-mode
+           autoreconf -i
+           ./autogen.sh
            ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
+           libtoolize --automake --copy --debug --force
            autoreconf -i
-           ./autogen.sh --enable-maintainer-mode
+           ./autogen.sh
            ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
-    - name: Download Dependencies
-      run: make -C depends download
-    - name: Create Dependencies Tarball
-      run: tar -czf depends.tar.gz depends
-    - name: Prepare Files for Artifact
-      run: |
-           mkdir -p $ARTIFACT_DIR
-           mv depends.tar.gz lyra-*.tar.gz $ARTIFACT_DIR
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: ${{ env.SOURCE_ARTIFACT }}
-        path: ${{ env.ARTIFACT_DIR }}
   target-windows:
     name: Target Windows
     runs-on: ubuntu-latest
