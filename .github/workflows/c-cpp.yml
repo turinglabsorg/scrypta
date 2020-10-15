@@ -17,19 +17,20 @@ jobs:
       run: |
            sudo apt-get update
            sudo apt-get install -y build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 curl
+           sudo apt-get install -y protobuf-c-compiler  
     - name: Build dependencies
       run: make -C depends -j$(nproc) HOST=x86_64-unknown-linux-gnu
     - name: Build Lyra
       run: |
            autoreconf -i
-           ./autogen.sh
+           ./autogen.sh --enable-maintainer-mode
            ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
            autoreconf -i
-           ./autogen.sh
+           ./autogen.sh --enable-maintainer-mode
            ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
     - name: Download Dependencies
@@ -56,6 +57,7 @@ jobs:
            sudo apt-get update
            sudo apt-get install -y build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 curl
            sudo apt-get install -y g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64
+           sudo apt-get install -y protobuf-c-compiler  
     - name: Switch MinGW GCC and G++ to POSIX Threading
       run: |
            sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
@@ -65,14 +67,14 @@ jobs:
     - name: Build Lyra
       run: |
            autoreconf -i
-           ./autogen.sh
+           ./autogen.sh --enable-maintainer-mode
            sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --prefix=/
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
            autoreconf -i
-           ./autogen.sh
+           ./autogen.sh --enable-maintainer-mode
            sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5 --prefix=/
            make -j$(nproc)
   target-macos:
@@ -86,13 +88,13 @@ jobs:
     - name: Build Lyra
       run: |
            autoreconf -i
-           ./autogen.sh
+           ./autogen.sh --enable-maintainer-mode
            ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
            autoreconf -i
-           ./autogen.sh
+           ./autogen.sh --enable-maintainer-mode
            ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
            make -j$(nproc)
