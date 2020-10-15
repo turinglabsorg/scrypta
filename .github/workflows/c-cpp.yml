@@ -18,19 +18,19 @@ jobs:
            sudo apt-get update
            sudo apt-get install -y build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 curl
            sudo apt-get install -y protobuf-c-compiler
+           sudo apt-get install -y libdb4.8-dev libdb4.8++-dev
            sudo apt-get install -y libminiupnpc-dev
            sudo apt-get install -y libcurl4-openssl-dev pkg-config
            sudo apt-get install -y libsasl2-dev
            sudo apt-get install -y libtool libtool-bin
            sudo apt-get install -y libcurl4-openssl-dev
-           sudo apt-get install -y libdb4.8-dev libdb4.8++-dev
     - name: Build Lyra
       run: |
-           libtoolize --automake --copy --debug --force
-           autoreconf -i
-           ./autogen.sh
-           ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
-           make -j$(nproc)
+           sudo libtoolize --automake --copy --debug --force
+           sudo autoreconf -i
+           sudo ./autogen.sh
+           sudo ./configure --disable-gui-tests --disable-shared --disable-tests --disable-bench --with-unsupported-ssl --with-libressl --with-gui=qt5
+           sudo make -j$(nproc)
     - name: Work around ltmain.sh issue
       if: failure()
       run: |
