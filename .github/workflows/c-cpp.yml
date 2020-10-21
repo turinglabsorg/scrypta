@@ -33,6 +33,7 @@ jobs:
         sudo apt-get install libdb4.8-dev libdb4.8++-dev
     - name: Create Distribution Tarball
       run: |
+        libtoolize
         ./autogen.sh
         ./configure --with-incompatible-bdb
         make dist
