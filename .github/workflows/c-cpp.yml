@@ -25,10 +25,11 @@ jobs:
         sudo apt-get install -y libboost-all-dev libdb-dev libdb++-dev libevent-dev
         sudo apt-get install -y unzip
         sudo apt-get install -y build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils cmake libgmp-dev python3 cmake
-        sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
         sudo apt-get install software-properties-common
-        sudo add-apt-repository ppa:bitcoin/bitcoin
+        sudo add-apt-repository ppa:boost-latest/ppa
         sudo apt-get update
+        sudo apt-get install libboost-all-dev
+        sudo apt-get install libtool
         sudo apt-get install libdb4.8-dev libdb4.8++-dev
     - name: Create Distribution Tarball
       run: |
