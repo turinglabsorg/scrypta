@@ -26,7 +26,7 @@ jobs:
         sudo apt-get install -y unzip
         sudo apt-get install -y build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils cmake libgmp-dev python3 cmake
         sudo apt-get install software-properties-common
-        sudo add-apt-repository ppa:boost-latest/ppa
+        sudo add-apt-repository ppa:bitcoin/bitcoin
         sudo apt-get update
         sudo apt-get install libboost-all-dev
         sudo apt-get install libtool
