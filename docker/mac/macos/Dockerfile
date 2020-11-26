@@ -26,6 +26,7 @@ WORKDIR /opt
 WORKDIR /opt/scrypta
 WORKDIR /opt
 WORKDIR /opt
+WORKDIR /opt
 RUN git clone https://github.com/turinglabsorg/scrypta
 
 # BUILDING LINUX
