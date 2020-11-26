@@ -14,8 +14,6 @@ RUN apt-get install -y libcurl4-gnutls-dev
 
 # CLONING REPO
 WORKDIR /opt
-WORKDIR /scrypta
-WORKDIR /opt
 RUN git clone https://github.com/turinglabsorg/scrypta
 
 # BUILDING LINUX
