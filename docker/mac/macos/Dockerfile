@@ -23,6 +23,8 @@ RUN PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g')
 
 # CLONING REPO
 WORKDIR /opt
+WORKDIR /opt/scrypta
+WORKDIR /opt
 RUN git clone https://github.com/turinglabsorg/scrypta
 
 # BUILDING LINUX
