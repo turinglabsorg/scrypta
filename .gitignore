@@ -1,2 +1,2 @@
 .vscode
-docker/*/build/
+docker/*/*/build/
