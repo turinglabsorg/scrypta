@@ -11,9 +11,12 @@ RUN apt-get install -y libboost-system-dev libboost-filesystem-dev libboost-chro
 RUN apt-get install -y libzmq3-dev
 RUN apt-get install -y libminiupnpc-dev
 RUN apt-get install -y libtool
-RUN apt-get install -y libcurl4-openssl-dev
 RUN apt-get install -y libssl1.0-dev
+RUN apt-get install -y libcurl4-openssl-dev
 RUN apt-get install -y libgmp3-dev libevent-dev bsdmainutils libboost-all-dev openssl
+RUN apt-get install -y autoconf g++ make openssl libssl-dev libcurl4-openssl-dev -y
+RUN apt-get install -y libcurl4-openssl-dev pkg-config -y
+RUN apt-get install -y libsasl2-dev -y
 
 # CLONING REPO
 WORKDIR /opt
@@ -25,8 +28,7 @@ RUN ./autogen.sh; exit 0
 RUN libtoolize --automake --copy --debug --force
 RUN autoreconf -i
 RUN ./autogen.sh
-RUN ./configure; exit 0
-RUN ./configure
+RUN ./configure --with-unsupported-ssl
 RUN make -j16
 
 EXPOSE 42222 42223
