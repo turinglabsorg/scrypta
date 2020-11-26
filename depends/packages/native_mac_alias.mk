@@ -1,5 +1,5 @@
 package=native_mac_alias
-$(package)_version=1.1.0
+$(package)_version=v1.1.0
 $(package)_download_path=https://github.com/al45tair/mac_alias/archive/
 $(package)_download_file=v$($(package)_version).tar.gz
 $(package)_file_name=$(package)-$($(package)_version).tar.gz
