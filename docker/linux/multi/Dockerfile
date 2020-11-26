@@ -14,18 +14,22 @@ RUN apt-get install -y libcurl4-gnutls-dev
 
 # CLONING REPO
 WORKDIR /opt
-WORKDIR /scrypta
-WORKDIR /opt
 RUN git clone https://github.com/turinglabsorg/scrypta
 
 # BUILDING LINUX
+WORKDIR /opt/scrypta/depends
+RUN make HOST=x86_64-linux-gnu -j16
 WORKDIR /opt/scrypta
 RUN ./autogen.sh; exit 0
 RUN libtoolize --automake --copy --debug --force
 RUN autoreconf -i
 RUN ./autogen.sh
-RUN ./configure --enable-glibc-back-compat --prefix=`pwd`/depends/x86_64-pc-linux-gnu LDFLAGS="-static-libstdc++"
+RUN ./configure --enable-glibc-back-compat --prefix=$(pwd)/depends/x86_64-linux-gnu LDFLAGS="-static-libstdc++"
 RUN make -j16
+WORKDIR /opt/scrypta/src
+RUN strip lyrad lyra-cli
+WORKDIR /opt/scrypta/src/qt
+RUN strip lyra-qt
 
 EXPOSE 42222 42223
 CMD tail -f /dev/null

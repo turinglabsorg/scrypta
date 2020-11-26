@@ -24,6 +24,10 @@ RUN autoreconf -i
 RUN ./autogen.sh
 RUN ./configure
 RUN make -j16
+WORKDIR /opt/scrypta/src
+RUN strip lyrad lyra-cli
+WORKDIR /opt/scrypta/src/qt
+RUN strip lyra-qt
 
 EXPOSE 42222 42223
 CMD tail -f /dev/null
