@@ -25,6 +25,7 @@ RUN PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g')
 WORKDIR /opt
 WORKDIR /opt/scrypta
 WORKDIR /opt
+WORKDIR /opt
 RUN git clone https://github.com/turinglabsorg/scrypta
 
 # BUILDING LINUX
