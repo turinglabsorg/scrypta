@@ -23,7 +23,20 @@ RUN PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g')
 
 # CLONING REPO
 WORKDIR /opt
-WORKDIR /opt/scrypta
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
+WORKDIR /opt
 WORKDIR /opt
 WORKDIR /opt
 WORKDIR /opt
@@ -42,16 +55,11 @@ RUN wget -c https://github.com/phracker/MacOSX-SDKs/releases/download/MacOSX10.1
 RUN tar -xf MacOSX10.11.sdk.tar.xz
 WORKDIR /opt/scrypta/depends
 RUN make -j16 HOST=x86_64-apple-darwin11
-WORKDIR /opt/scrypta
 
-RUN ./autogen.sh
-RUN mkdir db4
-RUN wget -c 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
-RUN tar -xzvf db-4.8.30.NC.tar.gz
-WORKDIR /opt/scrypta/db-4.8.30.NC/build_unix/
-RUN ../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$(pwd)/db4
-RUN make -j16 install
 WORKDIR /opt/scrypta
+RUN ./autogen.sh; exit 0
+RUN libtoolize --automake --copy --debug --force
+RUN autoreconf -i
 RUN ./autogen.sh
 RUN ./configure --prefix=$(pwd)/depends/x86_64-apple-darwin11
 RUN make -j16
