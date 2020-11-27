@@ -232,7 +232,7 @@
     <name>Bip38ToolDialog</name>
     <message>
         <source>BIP 38 Tool</source>
-        <translation>BIP 38 Strumento</translation>
+        <translation>Strumento BIP 38</translation>
     </message>
     <message>
         <source>&amp;BIP 38 Encrypt</source>
