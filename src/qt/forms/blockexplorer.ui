@@ -23,7 +23,11 @@
       <item>
        <widget class="QPushButton" name="back">
         <property name="text">
-         <string>L<string/>
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../lyra.qrc">
+          <normaloff>:/icons/back</normaloff>:/icons/back</iconset>
         </property>
         <property name="flat">
          <bool>false</bool>
@@ -33,7 +37,11 @@
       <item>
        <widget class="QPushButton" name="forward">
         <property name="text">
-         <string>R<string/>
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../lyra.qrc">
+          <normaloff>:/icons/forward</normaloff>:/icons/forward</iconset>
         </property>
        </widget>
       </item>
