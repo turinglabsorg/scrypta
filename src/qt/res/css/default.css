@@ -136,7 +136,10 @@ color:#333333;
 .QCheckBox { /* Checkbox Labels */
 color:#333333;
 background-color:transparent;
-border:1px solid #333;
+}
+QCheckBox::indicator {
+    border: 1px solid #000;
+    background: white;
 }
 
 .QCheckBox:hover {
