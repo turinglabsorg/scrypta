@@ -552,3 +552,31 @@ void BlockExplorer::setContent(const std::string& Content)
     // printf(FullContent.toUtf8());
     ui->content->setText(FullContent);
 }
+
+void BlockExplorer::back()
+{
+    int NewIndex = m_HistoryIndex - 1;
+    if (0 <= NewIndex && NewIndex < m_History.size()) {
+        m_HistoryIndex = NewIndex;
+        ui->searchBox->setText(m_History[NewIndex]);
+        switchTo(m_History[NewIndex]);
+        updateNavButtons();
+    }
+}
+
+void BlockExplorer::forward()
+{
+    int NewIndex = m_HistoryIndex + 1;
+    if (0 <= NewIndex && NewIndex < m_History.size()) {
+        m_HistoryIndex = NewIndex;
+        ui->searchBox->setText(m_History[NewIndex]);
+        switchTo(m_History[NewIndex]);
+        updateNavButtons();
+    }
+}
+
+void BlockExplorer::updateNavButtons()
+{
+    ui->back->setEnabled(m_HistoryIndex - 1 >= 0);
+    ui->forward->setEnabled(m_HistoryIndex + 1 < m_History.size());
+}
