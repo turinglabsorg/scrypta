@@ -325,10 +325,12 @@ border-right:0;
 }
 
 .QScrollArea {
+background:transparent;
 border:0;
 }
 
 .QTableView { /* Table - has to be selected as a class otherwise it throws off QCalendarWidget */
+background:transparent;
 border:1px solid #333;
 }
 
@@ -349,6 +351,7 @@ border:1px solid #333;
 
 QTableWidget:focus, QTableView, QTableView:focus { /* Remove focus outline */
 outline:0;
+background:transparent;
 }
 
 QTreeWidget { /* Tree Background */
@@ -377,12 +380,12 @@ margin:0px 18px 0px 18px;
 
 
 QScrollBar::handle:vertical { /* Scroll Bar Slider - vertical */
-background:#fff;
+background:#e0e0e0;
 min-height:10px;
 }
 
 QScrollBar::handle:horizontal { /* Scroll Bar Slider - horizontal */
-background:#fff;
+background:#e0e0e0;
 min-width:10px;
 }
 
@@ -398,7 +401,7 @@ height:16px;
 }
 
 QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed, QScrollBar::add-line:horizontal:pressed, QScrollBar::sub-line:horizontal:pressed {
-background-color:#fff;
+background-color:#e0e0e0;
 }
 
 QScrollBar::sub-line:vertical { /* Vertical - top button position */
@@ -892,11 +895,9 @@ padding-right:5px;
 
 /**************************** OVERVIEW SCREEN *******************************************/
 
-QWidget#OverviewPage {
-    background-color:#fff;
-}
 QWidget .QFrame#frame { /* Wallet Balance */
 min-width:490px;
+background:#fff;
 }
 
 QWidget .QFrame#frame > .QLabel {
@@ -908,6 +909,7 @@ min-height:30px;
 QWidget .QFrame#frame .QLabel#label_5 { /* Wallet Label */
 qproperty-alignment: 'AlignVCenter | AlignRight';
 min-width:160px;
+background-color:transparent;
 color:#363636;
 margin-right:5px;
 padding-right:5px;
@@ -1259,7 +1261,6 @@ QDialog#SendCoinsDialog {
 background-color:#fff;
 }
 
-
 QDialog#SendCoinsDialog .QFrame#frameCoinControl { /* Coin Control Section */
 }
 
@@ -1299,6 +1300,7 @@ margin-right:112px;
 }
 
 QDialog#SendCoinsDialog .QScrollArea#scrollArea .QWidget#scrollAreaWidgetContents { /* Send To Widget */
+background:transparent;
 }
 
 QDialog#SendCoinsDialog .QPushButton#sendButton { /* Send Button */
@@ -1343,6 +1345,7 @@ border:1px solid #9e9e9e;
 QDialog#SendCoinsDialog .QCheckBox#checkUseObfuscation { /* Obfuscation Checkbox */
 color:#616161;
 font-weight:bold;
+background:transparent;
 /*background: qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(248, 246, 246, 128), stop: 1 rgba(0, 0, 0, 0));*/
 border-radius:5px;
 padding-top:20px;
@@ -1352,6 +1355,7 @@ padding-bottom:18px;
 QDialog#SendCoinsDialog .QCheckBox#checkSwiftTX { /* SwiftTX Checkbox */
 color:#616161;
 font-weight:bold;
+background:transparent;
 /*background: qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(248, 246, 246, 128), stop: 1 rgba(0, 0, 0, 0));*/
 border-radius:5px;
 padding-top:20px;
@@ -1689,15 +1693,8 @@ QLabel#transactionSum { /* Example of setObjectName for widgets without name */
 color:#333333;
 }
 
-/**************************** MASTERNODE LISTS ********************************/
-QWidget#MasternodeList {
-    background:#fff;
-}
-
 /**************************** TRANSACTION DETAILS DIALOG ********************************/
-QDialog#TransactionDescDialog { /* Contents of Receive Coin Dialog */
-    background:#fff;
-}
+
 QDialog#TransactionDescDialog QTextEdit { /* Contents of Receive Coin Dialog */
 border:1px solid #d7d7d7;
 }
