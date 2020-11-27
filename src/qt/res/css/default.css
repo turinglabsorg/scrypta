@@ -616,6 +616,8 @@ border:1px solid #d2d2d2;
 color:#616161;
 padding-left:10px;
 padding-right:10px;
+padding-top:4px;
+padding-bottom:4px;
 }
 
 QPushButton#pasteButton_ENC {
@@ -658,6 +660,14 @@ padding-left:10px;
 padding-right:10px;
 }
 
+QPushButton#encryptKeyButton_ENC {
+    background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #f6f6f6, stop: .1 rgba(250, 250, 250, 128), stop: .95 rgba(250, 250, 250, 255), stop: 1 #ebebeb);
+    border:1px solid #d2d2d2;
+    color:#616161;
+    padding-left:10px;
+    padding-right:10px;
+}
+    
 QPushButton#importAddressButton_DEC {
 background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #f6f6f6, stop: .1 rgba(250, 250, 250, 128), stop: .95 rgba(250, 250, 250, 255), stop: 1 #ebebeb);
 border:1px solid #d2d2d2;
