@@ -137,7 +137,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../bitcoin.qrc"/>
+  <include location="../lyra.qrc"/>
  </resources>
  <connections/>
 </ui>

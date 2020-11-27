@@ -37,8 +37,6 @@ protected:
 private Q_SLOTS:
     void onSearch();
     void goTo(const QString& query);
-    void back();
-    void forward();
 
 private:
     Ui::BlockExplorer* ui;
