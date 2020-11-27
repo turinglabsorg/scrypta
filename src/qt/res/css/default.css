@@ -139,7 +139,6 @@ background-color:transparent;
 }
 QCheckBox::indicator {
     border: 1px solid #000;
-    background: white;
 }
 
 .QCheckBox:hover {
