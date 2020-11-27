@@ -894,9 +894,7 @@ padding-right:5px;
 }
 
 /**************************** OVERVIEW SCREEN *******************************************/
-#topLayout{
-    background:#fff;
-}
+
 QWidget .QFrame#frame { /* Wallet Balance */
 min-width:490px;
 }
