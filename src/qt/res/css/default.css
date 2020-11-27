@@ -616,8 +616,8 @@ border:1px solid #d2d2d2;
 color:#616161;
 padding-left:10px;
 padding-right:10px;
-padding-top:4px;
-padding-bottom:4px;
+padding-top:10px;
+padding-bottom:10px;
 }
 
 QPushButton#pasteButton_ENC {
@@ -626,8 +626,8 @@ border:1px solid #d2d2d2;
 color:#616161;
 padding-left:10px;
 padding-right:10px;
-padding-top:4px;
-padding-bottom:4px;
+padding-top:10px;
+padding-bottom:10px;
 }
 
 QPushButton#clearButton_ENC {
@@ -636,8 +636,8 @@ border:1px solid #d2d2d2;
 color:#616161;
 padding-left:10px;
 padding-right:10px;
-padding-top:4px;
-padding-bottom:4px;
+padding-top:10px;
+padding-bottom:10px;
 }
 
 QPushButton#decryptKeyButton_DEC {
@@ -646,8 +646,8 @@ border:1px solid #d2d2d2;
 color:#616161;
 padding-left:10px;
 padding-right:10px;
-padding-top:4px;
-padding-bottom:4px;
+padding-top:10px;
+padding-bottom:10px;
 }
 
 QPushButton#clearButton_DEC {
@@ -656,8 +656,8 @@ border:1px solid #d2d2d2;
 color:#616161;
 padding-left:10px;
 padding-right:10px;
-padding-top:4px;
-padding-bottom:4px;
+padding-top:10px;
+padding-bottom:10px;
 }
 
 QPushButton#clearButton_DEC {
@@ -666,8 +666,8 @@ border:1px solid #d2d2d2;
 color:#616161;
 padding-left:10px;
 padding-right:10px;
-padding-top:4px;
-padding-bottom:4px;
+padding-top:10px;
+padding-bottom:10px;
 }
 
 QPushButton#encryptKeyButton_ENC {
@@ -676,8 +676,8 @@ QPushButton#encryptKeyButton_ENC {
     color:#616161;
     padding-left:10px;
     padding-right:10px;
-    padding-top:4px;
-    padding-bottom:4px;
+    padding-top:10px;
+    padding-bottom:10px;
 }
     
 QPushButton#importAddressButton_DEC {
@@ -686,8 +686,8 @@ border:1px solid #d2d2d2;
 color:#616161;
 padding-left:10px;
 padding-right:10px;
-padding-top:4px;
-padding-bottom:4px;
+padding-top:10px;
+padding-bottom:10px;
 }
 
 QPushButton#copyKeyButton_ENC {
@@ -696,8 +696,8 @@ border:1px solid #d2d2d2;
 color:#616161;
 padding-left:10px;
 padding-right:10px;
-padding-top:4px;
-padding-bottom:4px;
+padding-top:10px;
+padding-bottom:10px;
 }
 
 /**************************** SEND AND RECEIVE DIALOG ***********************************/
