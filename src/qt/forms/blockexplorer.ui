@@ -21,31 +21,6 @@
        <enum>QLayout::SetMinimumSize</enum>
       </property>
       <item>
-       <widget class="QPushButton" name="back">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="../lyra.qrc">
-          <normaloff>:/icons/back</normaloff>:/icons/back</iconset>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="forward">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="../lyra.qrc">
-          <normaloff>:/icons/forward</normaloff>:/icons/forward</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLineEdit" name="searchBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
