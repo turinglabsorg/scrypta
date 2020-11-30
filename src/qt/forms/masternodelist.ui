@@ -206,6 +206,9 @@
                                       </property>
                                       <item>
                                         <widget class="QPushButton" name="startButton">
+                                          <property name="visible">
+                                            <bool>false</bool>
+                                          </property>
                                           <property name="text">
                                             <string>S&amp;tart alias</string>
                                           </property>
@@ -213,6 +216,9 @@
                                       </item>
                                       <item>
                                         <widget class="QPushButton" name="startAllButton">
+                                          <property name="visible">
+                                            <bool>false</bool>
+                                          </property>
                                           <property name="text">
                                             <string>Start &amp;all</string>
                                           </property>
@@ -220,6 +226,9 @@
                                       </item>
                                       <item>
                                         <widget class="QPushButton" name="startMissingButton">
+                                          <property name="visible">
+                                            <bool>false</bool>
+                                          </property>
                                           <property name="text">
                                             <string>Start &amp;MISSING</string>
                                           </property>
