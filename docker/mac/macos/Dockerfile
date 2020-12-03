@@ -45,6 +45,7 @@ RUN autoreconf -i
 RUN ./autogen.sh
 RUN ./configure --prefix=$(pwd)/depends/x86_64-apple-darwin11
 RUN make -j16
+RUN make deploy
 
 EXPOSE 42222 42223
 CMD tail -f /dev/null
