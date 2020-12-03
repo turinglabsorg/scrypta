@@ -19,6 +19,8 @@ RUN apt-get install -y libcap-dev
 RUN apt-get install -y python-dev
 RUN apt-get install -y libbz2-dev
 RUN apt-get install -y imagemagick
+RUN apt-get install -y librsvg2-bin
+RUN apt-get install -y libtiff-tools
 RUN PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g')
 
 # CLONING REPO
